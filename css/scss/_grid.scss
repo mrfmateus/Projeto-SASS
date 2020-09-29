@@ -31,15 +31,21 @@ $s-device: 480px;
 
 //funcao da grid
 @function grid($col, $offset: false) {
-	$width: $col / $cols * 100 + "%";
-	$result: $width - $gutter;
-
-	@if $offset = offset {
+	$width: ($col / $cols) * 100 + "%";
+	$result: calc(#{$width} - #{$gutter});
+	@if $offset == offset {
 		$gutter: $gutter / 2;
-		$result: $width + $gutter;
+		$result: calc(#{$width} + #{$gutter});
 	}
-
 	@return $result;
 }
 
 //gera classes da grid
+@for $i from 1 through $cols {
+	.grid-#{$i} {
+		width: grid($i);
+	}
+}
+
+//mixin estrutura do grid
+
